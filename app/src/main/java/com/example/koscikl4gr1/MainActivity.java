@@ -35,12 +35,26 @@ public class MainActivity extends AppCompatActivity {
         textViewWynikRzutu = findViewById(R.id.textView);
         textViewWynikSumaryczny = findViewById(R.id.textView2);
 
+        int[] obrazki = new int[]{
+                R.drawable.question,
+                R.drawable.k1,
+                R.drawable.k2,
+                R.drawable.k3,
+                R.drawable.k4,
+                R.drawable.k5,
+                R.drawable.k6
+        };
 
         buttonRzuc.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int[] rzuty = rzucWszystkimiKoscmi();
+                        for (int i = 0; i < obrazyKosci.length; i++) {
+                            obrazyKosci[i].setImageResource(obrazki[rzuty[i]]);
+                        }
+
+
                     }
                 }
         );
@@ -49,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         int[] rzuty = new int[5];
         Random random = new Random();
         for (int i = 0; i < rzuty.length; i++) {
-            rzuty[i] = random.nextInt(6);//+1 lub potem przy odczycie grafiki -1
+            rzuty[i] = random.nextInt(6)+1;//+1 lub potem przy odczycie grafiki -1
         }
         return rzuty;
     }

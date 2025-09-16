@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageView[] obrazyKosci;
     private TextView textViewWynikRzutu;
     private TextView textViewWynikSumaryczny;
+    private int sumaRazem=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +55,44 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i < obrazyKosci.length; i++) {
                             obrazyKosci[i].setImageResource(obrazki[rzuty[i]]);
                         }
+                        int suma = sumaKosc(rzuty);
+                        textViewWynikRzutu.setText("Suma rzutu:"+suma);
+sumaRazem = sumaRazem+suma;
+textViewWynikSumaryczny.setText("Suma rzutów: "+sumaRazem);
+                    }
+                }
+        );
 
+        buttonReset.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        sumaRazem = 0;
+                        for (ImageView imageView:obrazyKosci
+                             ) {
+                            imageView.setImageResource(obrazki[0]);
 
+                        }
+                        textViewWynikRzutu.setText("Wynik rzutu:");
+                        textViewWynikSumaryczny.setText("Razem rzuty:");
                     }
                 }
         );
     }
-    private int[] rzucWszystkimiKoscmi(){
+
+    private int sumaKosc(int[] rzuty) {
+        int s = 0;
+        for (int i = 0; i < rzuty.length; i++) {
+            s = s + rzuty[i];
+        }
+        return s;
+    }
+
+    private int[] rzucWszystkimiKoscmi() {
         int[] rzuty = new int[5];
         Random random = new Random();
         for (int i = 0; i < rzuty.length; i++) {
-            rzuty[i] = random.nextInt(6)+1;//+1 lub potem przy odczycie grafiki -1
+            rzuty[i] = random.nextInt(6) + 1;//+1 lub potem przy odczycie grafiki -1
         }
         return rzuty;
     }
